@@ -1,0 +1,23 @@
+{
+  "name": "topomath",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/Index.js",
+  "scripts": {
+    "dev": "snowpack dev",
+    "build": "snowpack build --clean",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0",
+    "mathjs": "^9.5.0",
+    "mathquill": "^0.10.1-a",
+    "noisejs": "^2.1.0",
+    "three": "^0.133.1"
+  }
+}

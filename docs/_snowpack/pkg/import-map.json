@@ -1,0 +1,18 @@
+{
+  "imports": {
+    "complex.js": "./complexjs.js",
+    "decimal.js": "./decimaljs.js",
+    "escape-latex": "./escape-latex.js",
+    "fraction.js": "./fractionjs.js",
+    "javascript-natural-sort": "./javascript-natural-sort.js",
+    "mathjs": "./mathjs.js",
+    "mathquill/build/mathquill.css": "./mathquill/build/mathquill.css",
+    "noisejs": "./noisejs.js",
+    "seedrandom": "./seedrandom.js",
+    "three": "./three.js",
+    "three/examples/jsm/controls/OrbitControls": "./three/examples/jsm/controls/OrbitControls.js",
+    "three/examples/jsm/effects/OutlineEffect.js": "./three/examples/jsm/effects/OutlineEffect.js",
+    "three/examples/jsm/libs/stats.module": "./three/examples/jsm/libs/stats.module.js",
+    "tiny-emitter": "./tiny-emitter.js"
+  }
+}
