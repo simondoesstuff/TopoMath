@@ -1,0 +1,3 @@
+node_modules/*
+progressSnapshots/*
+package-lock.json
