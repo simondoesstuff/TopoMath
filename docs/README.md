@@ -1,2 +1,0 @@
-# TopoMath
- Topological Math

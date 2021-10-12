@@ -127,6 +127,9 @@ export function evaluate(x, y) {
 
   try {
     val = activeEvaluator.evaluate(scope);
+
+    // == does null or undef here but not 0
+    if (val == null) throw "";  // this will trigger the catch block
   } catch (e) {
     cachedHeights[[x, y]] = "Failed Evaluation";
     throw "Failed Evaluation";

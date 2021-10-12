@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
 import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect.js";
-import domLog from "./outputUtil";
+import domLog, { lazyLog } from "./outputUtil";
 import { BufferAttribute } from "three";
 
 const length = 120;
@@ -101,6 +101,7 @@ scene.add(plane);
 // used for updatePlane()           // todo move to js file only for plane
 let planeSmoothingVerticiesDone = [];
 let planeSmoothingVerticiesLeft;    // number
+let dontEvenTryToUpdateThePlane = false;
 
 /**
  * Update all height values in the plane.
@@ -110,14 +111,23 @@ export function updatePlane() {
 
     planeSmoothingVerticiesLeft = planeGeometry.getAttribute('position').count;
     planeSmoothingVerticiesDone = [];
+
+    dontEvenTryToUpdateThePlane = false;
 }
 
 function animatePlane() {
+    if (dontEvenTryToUpdateThePlane) return;
+
     let positions = planeGeometry.getAttribute("position");
     let updatedSomething = false;
 
-    for (let i = 0; i < positions.count && planeSmoothingVerticiesLeft != 0; i++) {
+    for (let i = 0; i < positions.count; i++) {
         // in the plane's local grid, X & Y are horizontal and Z
+
+        if (planeSmoothingVerticiesLeft == 0) {
+            dontEvenTryToUpdateThePlane = true;
+            continue;
+        }
 
         let x = positions.getX(i);
         let y = positions.getY(i);
@@ -138,10 +148,10 @@ function animatePlane() {
             // aligns axis to make more sense mathematically
             newZ *= -1;
         } catch (e) {
-            if (e === "Failed Evaluation") {
-                plane.visible = false;
-                return;
-            }
+            // stop showing the plane
+            plane.visible = false;
+            dontEvenTryToUpdateThePlane = true;
+            return;
         }
 
         // if close enough
@@ -167,7 +177,7 @@ function animatePlane() {
     }
 
     if (updatedSomething) {
-        console.log('computing normals');   // todo remove
+        lazyLog('computing normals');   // todo remove
         planeGeometry.computeVertexNormals();
     }
 

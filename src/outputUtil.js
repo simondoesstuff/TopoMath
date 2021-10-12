@@ -10,4 +10,26 @@ export function domLog(msg) {
     consoleBox.append(msg + '<br/>');
 }
 
+
+// lazyLog
+
+let lastSend = 0;
+let lazyQueue = [];
+
+export function lazyLog(msg) {
+    let delta = Date.now() - lastSend;
+
+    if (delta <= 100) {
+        lazyQueue.push(msg);
+        return;
+    }
+
+    lazyQueue.push(msg);
+
+    console.log(lazyQueue.join('\n'));
+    lazyQueue = [];
+
+    lastSend += delta;
+}
+
 export default domLog;
