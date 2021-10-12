@@ -1,4 +1,4 @@
-import('mathquill/build/mathquill.css')
+// import('mathquill/build/mathquill.css')
 import('./style.css')
 
 import * as Graphics from './graphics'

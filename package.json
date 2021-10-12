@@ -18,9 +18,7 @@
     "webpack-cli": "^4.9.0"
   },
   "dependencies": {
-    "jquery": "^3.6.0",
     "mathjs": "^9.5.0",
-    "mathquill": "^0.10.1-a",
     "noisejs": "^2.1.0",
     "three": "^0.133.1"
   }
