@@ -22,6 +22,7 @@ function SettingsGear() {
 }
 
 // todo placeholder items
+// todo make slightly overlap settings gear?
 function DropdownMenu(props) {
     const {open} = props;
 

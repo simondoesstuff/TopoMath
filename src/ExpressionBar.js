@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {EditableMathField} from "react-mathquill";
 
+// todo stretchable?
+
 function ExpressionBar() {
     return (
         <nav className="expression-bar">
