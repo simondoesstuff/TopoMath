@@ -1,0 +1,80 @@
+body
+  margin: 0
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu','Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+code
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace
+
+// ------------------
+
+$primary: #242526
+$accent: #484a4d
+$text-color: #dadce1
+$nav-size: 60px
+$border: 1px solid $accent
+$border-radius: 8px
+
+ul
+  list-style: none
+  margin: 0
+  padding: 0
+
+a
+  color: $text-color
+  text-decoration: none
+
+.expression-bar
+  //height: $nav-size
+  min-height: $nav-size
+  background-color: $primary
+  padding: 0 1rem
+  border-bottom: $border
+  // center the items
+  display: grid
+  place-items: center
+  overflow: hidden
+
+.settings-gear
+  $button-size: $nav-size * .8
+
+  width: $button-size
+  height: $button-size
+  background-color: $accent
+  border-radius: 50% // circular
+  padding: 5px
+  margin: 20px 20px 0 20px
+  // center the items
+  display: grid
+  place-items: center
+  // animate brightness for hover
+  transition: filter 300ms
+
+.settings-gear:hover
+  filter: brightness(1.2)
+
+.dropdown
+  position: absolute
+  width: 150px
+  //top: 107px
+  z-index: -1
+  background-color: $primary
+  border: $border
+  border-radius: $border-radius
+  padding: 1rem
+  margin: 20px
+  overflow: hidden
+  // animate the height
+  transition: transform 500ms ease
+  transform-origin: top
+
+.dropdown-shrink
+  transform: scaleY(0)
+
+.dropdown-stretch
+  transform: scaleY(1)
+
+.dropdown-menu-item
+  margin: 10px
+  color: $text-color
