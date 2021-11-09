@@ -3,7 +3,7 @@ import {EditableMathField} from "react-mathquill";
 
 // todo stretchable?
 
-function ExpressionBar() {
+export default function ExpressionBar() {
     return (
         <nav className="expression-bar">
             <EditableMQField/>
@@ -25,5 +25,3 @@ function EditableMQField() {
         </div>
     )
 }
-
-export default ExpressionBar

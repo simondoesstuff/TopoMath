@@ -1,9 +1,8 @@
-import React, {useState} from "react";
-import {CSSTransition} from "react-transition-group";
+import React, {useEffect, useState} from "react";
+import {Fit, Layout, useRive, useStateMachineInput} from "rive-react";
+import SettingsDropdownMenu from "./SettingsDropdown";
 
-function SettingsGear() {
-    // todo placeholder icon
-
+export default function SettingsGear() {
     const [open, setOpen] = useState(false)
 
     return (
@@ -11,53 +10,38 @@ function SettingsGear() {
             <a
                 href="#!"
                 className="settings-gear"
-                onClick={ () => setOpen(!open) }>
-                ⚙
+                onClick={ () => setOpen(!open) }
+            >
+                <GearIcon open={open}/>
             </a>
 
-            <DropdownMenu open={open}/>
+            <SettingsDropdownMenu open={open}/>
         </div>
 
     )
 }
 
-// todo placeholder items
-// todo make slightly overlap settings gear?
-function DropdownMenu(props) {
+function GearIcon(props) {
     const {open} = props;
 
+    const {rive, RiveComponent} = useRive({
+        src: "./riveAssets/settings_gear_morph.riv",
+        stateMachines: "State Machine",
+        autoplay: true,
+        layout: new Layout({
+            fit: Fit.ScaleDown,
+        })
+    })
+
+    const stateMachine = useStateMachineInput(rive, "State Machine", "open");
+
+    useEffect(() => {
+        if (stateMachine) {
+            stateMachine.value = open;
+        }
+    })
+
     return (
-        <CSSTransition
-            in={open}
-            unmountOnExit
-            timeout={500}
-            classNames={{
-                enter: "dropdown-shrink",
-                enterActive: "dropdown-stretch",
-                exitActive: "dropdown-shrink"
-            }}
-        >
-            <div className="dropdown">
-                <DropdownItem text="Hello"/>
-                <DropdownItem text="There"/>
-                <DropdownItem text="How"/>
-                <DropdownItem text="Are"/>
-                <DropdownItem text="You"/>
-                <DropdownItem text="Doing"/>
-                <DropdownItem text="Today,"/>
-                <DropdownItem text="Brendan?"/>
-            </div>
-        </CSSTransition>
+        <RiveComponent/>
     )
 }
-
-function DropdownItem(props) {
-    return (
-        <div className="dropdown-menu-item">
-            { props.text }
-            <br/>
-        </div>
-    )
-}
-
-export default SettingsGear

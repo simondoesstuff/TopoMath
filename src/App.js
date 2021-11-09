@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import ExpressionBar from "./ExpressionBar";
 import SettingsGear from "./SettingsGear";
+import {useRive, useStateMachineInput} from "rive-react";
 
-function App() {
+export default function App() {
   return (
       <div>
           <ExpressionBar/>
@@ -10,5 +11,3 @@ function App() {
       </div>
   );
 }
-
-export default App;
