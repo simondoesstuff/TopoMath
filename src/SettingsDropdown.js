@@ -20,14 +20,14 @@ export default function DropdownMenu(props) {
             }}
         >
             <div className="dropdown">
-                <DropdownItem text="Hello"/>
-                <DropdownItem text="There"/>
-                <DropdownItem text="How"/>
-                <DropdownItem text="Are"/>
-                <DropdownItem text="You"/>
-                <DropdownItem text="Doing"/>
-                <DropdownItem text="Today,"/>
-                <DropdownItem text="Brendan?"/>
+                <SimpleItem text="Hello"/>
+                <SimpleItem text="There"/>
+                <SimpleItem text="How"/>
+                <SimpleItem text="Are"/>
+                <SimpleItem text="You"/>
+                <SimpleItem text="Doing"/>
+                <SimpleItem text="Today,"/>
+                <SimpleItem text="Brendan?"/>
                 <SpecialDropdownItem/>
             </div>
         </CSSTransition>
@@ -47,13 +47,13 @@ function SpecialDropdownItem() {
     }, [])
 
     return (
-        <div ref={el}>
+        <div ref={el} className="dropdown-menu-item">
             Hello America
         </div>
     )
 }
 
-function DropdownItem(props) {
+function SimpleItem(props) {
     return (
         <div className="dropdown-menu-item">
             { props.text }
