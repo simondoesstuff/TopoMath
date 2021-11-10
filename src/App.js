@@ -5,9 +5,9 @@ import {useRive, useStateMachineInput} from "rive-react";
 
 export default function App() {
   return (
-      <div>
+      <>
           <ExpressionBar/>
           <SettingsGear/>
-      </div>
+      </>
   );
 }
