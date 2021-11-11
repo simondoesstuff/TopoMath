@@ -56,7 +56,11 @@ a
   transition: filter 300ms
 
 .settings-gear:hover
-  filter: brightness(1.2)
+  filter: invert(1) brightness(.2)
+
+.settings-gear:active
+  transform: scale(.8)
+  filter: invert(1) brightness(.6)
 
 .dropdown
   position: absolute
