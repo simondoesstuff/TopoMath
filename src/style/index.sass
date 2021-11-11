@@ -9,12 +9,18 @@ code
 
 // ------------------
 
-$primary: #242526
-$accent: #484a4d
-$text-color: #dadce1
+$bg-color: #000000
+$primary: #ffffff
+$accent: #39a8f8
+$text-color: #1f1f1f
 $nav-size: 60px
-$border: 1px solid $accent
-$border-radius: 8px
+$settings-gear-size: 40px
+$border: 2px solid $accent
+//$border: none
+$border-radius: 2px
+
+body
+  background-color: $bg-color
 
 ul
   list-style: none
@@ -25,26 +31,26 @@ a
   color: $text-color
   text-decoration: none
 
-.expression-bar
-  //height: $nav-size
+.control-bar
   min-height: $nav-size
   background-color: $primary
   padding: 0 1rem
   border-bottom: $border
-  // center the items
-  display: grid
-  place-items: center
+  border-bottom-width: 10px
   overflow: hidden
+  // center the items
+  //display: grid
+  //place-items: center
 
 .settings-gear
-  $button-size: $nav-size * .8
+  $padding-size: $settings-gear-size * .2
 
-  width: $button-size
-  height: $button-size
-  background-color: $accent
-  border-radius: 50% // circular
-  padding: 10px
-  margin: 20px 20px 0 20px
+  width: $settings-gear-size
+  height: $settings-gear-size
+  //background-color: $primary
+  //border-radius: 50% // circular
+  padding: $padding-size
+  //margin: 20px 20px 0 20px
   display: flex
   // animate brightness for hover
   transition: filter 300ms
@@ -54,13 +60,13 @@ a
 
 .dropdown
   position: absolute
-  width: 150px
+  width: 400px
   //top: 107px
   z-index: -1
   background-color: $primary
   border: $border
   border-radius: $border-radius
-  padding: 1rem
+  padding: 5px
   margin: 20px
   overflow: hidden
   // animate the height
@@ -73,6 +79,5 @@ a
 .dropdown-stretch
   transform: scaleY(1)
 
-.dropdown-menu-item
-  margin: 10px
-  color: $text-color
+.grapick-bar
+  padding: 20px 0 20px 0

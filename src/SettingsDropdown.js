@@ -1,6 +1,6 @@
 import {CSSTransition} from "react-transition-group";
-import React, {useEffect} from "react";
-import Grapick from "grapick/src/Grapick";
+import React, {useRef} from "react";
+import GrapickBar from "./GrapickBar";
 
 
 // todo placeholder items
@@ -20,44 +20,35 @@ export default function DropdownMenu(props) {
             }}
         >
             <div className="dropdown">
-                <SimpleItem text="Hello"/>
-                <SimpleItem text="There"/>
-                <SimpleItem text="How"/>
-                <SimpleItem text="Are"/>
-                <SimpleItem text="You"/>
-                <SimpleItem text="Doing"/>
-                <SimpleItem text="Today,"/>
-                <SimpleItem text="Brendan?"/>
-                <SpecialDropdownItem/>
+                <MenuItems/>
             </div>
         </CSSTransition>
     )
 }
 
-// todo WIP
-function SpecialDropdownItem() {
-    const el = React.createRef();
-
-    useEffect(() => {
-        if (!el.current) return;
-
-        const gp = new Grapick({el: el.current});
-        gp.addHandler(0, 'red');
-        gp.addHandler(100, 'blue');
-    }, [])
+function MenuItems() {
+    const grapickRef = useRef();
+    const defaultGPHandlers = [
+        {
+            position: 20,
+            color: "cyan"
+        },
+        {
+            position: 75,
+            color: "black"
+        },
+        {
+            position: 90,
+            color: "gray"
+        },
+    ]
 
     return (
-        <div ref={el} className="dropdown-menu-item">
-            Hello America
+        <div className="grapick-bar">
+            <GrapickBar
+                grapickRef={grapickRef}
+                defaultHandlers={defaultGPHandlers}
+            />
         </div>
-    )
-}
-
-function SimpleItem(props) {
-    return (
-        <div className="dropdown-menu-item">
-            { props.text }
-            <br/>
-        </div>
-    )
+    );
 }
