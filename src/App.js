@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import ExpressionBar from "./ExpressionBar";
+import React from 'react'
+import ControlBar from "./ControlBar";
 import SettingsGear from "./SettingsGear";
-import {useRive, useStateMachineInput} from "rive-react";
 
 export default function App() {
   return (
       <>
-          <ExpressionBar/>
-          <SettingsGear/>
+          <ControlBar/>
+          {/*<SettingsGear/>*/}
       </>
   );
 }
