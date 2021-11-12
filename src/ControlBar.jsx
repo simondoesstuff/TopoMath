@@ -6,40 +6,37 @@ import SettingsGear from "./SettingsGear";
 
 export default function ControlBar() {
     return (
-        <nav
-            className="control-bar"
-            style={{
-                display: "flex",
-                "justify-content": "space-between"
-            }}
-        >
+        <nav className="control-bar">
             <div
                 style={{
-                    "align-self": "flex-start"
-                }}
-            >
+                    position: "absolute",
+                    top: 0,
+                    left: 0
+                }}>
                 <SettingsGear/>
             </div>
-            <div
-                style={{
-                    "align-self": "center"
-                }}
-            >
-                <EditableMQField/>
-            </div>
+
+            <EditableMQField
+                fontSize={20}
+            />
         </nav>
     )
 }
 
-function EditableMQField() {
+function EditableMQField(props) {
+    const {fontSize} = props;
     const [latex, setLatex] = useState('\\frac{1}{\\sqrt{2}}\\cdot 2')
 
     return (
-        <EditableMathField
-            latex={latex}
-            onChange={(mathField) => {
-                setLatex(mathField.latex())
-            }}
-        />
+        <div style={{
+            fontSize: fontSize
+        }}>
+            <EditableMathField
+                latex={latex}
+                onChange={(mathField) => {
+                    setLatex(mathField.latex())
+                }}
+            />
+        </div>
     )
 }
