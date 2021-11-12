@@ -8,7 +8,7 @@ export default function SettingsGear() {
     return (
         <div>
             <a
-                href="#!"
+                // href="#!"
                 className="settings-gear"
                 onClick={ () => setOpen(!open) }
             >
