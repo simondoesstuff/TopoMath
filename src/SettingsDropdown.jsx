@@ -3,30 +3,9 @@ import React, {useRef} from "react";
 import GrapickBar from "./GrapickBar";
 
 
-// todo placeholder items
-// todo make slightly overlap settings gear?
 export default function DropdownMenu(props) {
     const {open} = props;
 
-    return (
-        <CSSTransition
-            in={open}
-            unmountOnExit
-            timeout={500}
-            classNames={{
-                enter: "dropdown-shrink",
-                enterActive: "dropdown-stretch",
-                exitActive: "dropdown-shrink"
-            }}
-        >
-            <div className="dropdown">
-                <MenuItems/>
-            </div>
-        </CSSTransition>
-    )
-}
-
-function MenuItems() {
     const grapickRef = useRef();
     const defaultGPHandlers = [
         {
@@ -44,11 +23,24 @@ function MenuItems() {
     ]
 
     return (
-        <div className="grapick-bar">
-            <GrapickBar
-                grapickRef={grapickRef}
-                defaultHandlers={defaultGPHandlers}
-            />
-        </div>
-    );
+        <CSSTransition
+            in={open}
+            unmountOnExit
+            timeout={500}
+            classNames={{
+                enter: "dropdown-shrink",
+                enterActive: "dropdown-stretch",
+                exitActive: "dropdown-shrink"
+            }}
+        >
+            <div className="dropdown">
+                <div className="grapick-bar">
+                    <GrapickBar
+                        grapickRef={grapickRef}
+                        defaultHandlers={defaultGPHandlers}
+                    />
+                </div>
+            </div>
+        </CSSTransition>
+    )
 }
