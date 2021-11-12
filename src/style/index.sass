@@ -16,7 +16,6 @@ $text-color: #1f1f1f
 $nav-size: 60px
 $settings-gear-size: 40px
 $border: 2px solid $accent
-//$border: none
 $border-radius: 2px
 
 body
@@ -27,30 +26,21 @@ ul
   margin: 0
   padding: 0
 
-a
-  color: $text-color
-  text-decoration: none
-
 .control-bar
   min-height: $nav-size
   background-color: $primary
-  padding: 0 1rem
   border-bottom: $border
   border-bottom-width: 10px
+  display: grid
+  place-items: center
   overflow: hidden
-  // center the items
-  //display: grid
-  //place-items: center
 
 .settings-gear
-  $padding-size: $settings-gear-size * .2
+  $margin-size: $settings-gear-size * .2
 
   width: $settings-gear-size
   height: $settings-gear-size
-  //background-color: $primary
-  //border-radius: 50% // circular
-  padding: $padding-size
-  //margin: 20px 20px 0 20px
+  margin: $margin-size
   display: flex
   // animate brightness for hover
   transition: filter 300ms
@@ -63,15 +53,16 @@ a
   filter: invert(1) brightness(.6)
 
 .dropdown
+  //width: 50px
+  width: 40vw
   position: absolute
-  width: 400px
-  //top: 107px
-  z-index: -1
+  left: 5px
+  z-index: 1
   background-color: $primary
   border: $border
   border-radius: $border-radius
   padding: 5px
-  margin: 20px
+  //margin: 20px
   overflow: hidden
   // animate the height
   transition: transform 500ms ease
