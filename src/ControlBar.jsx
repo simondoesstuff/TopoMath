@@ -5,8 +5,19 @@ import SettingsGear from "./SettingsGear";
 // todo stretchable?
 
 export default function ControlBar() {
-    return (
-        <nav className="control-bar">
+    const defaultHeight = 100;
+    const [height, setHeight] = useState();
+
+    function onResize(mouseEvent, dir, el, delta) {
+        setHeight(el.offsetHeight)
+    }
+
+    const bar = (
+        <nav
+            className="control-bar"
+            style={{
+                height: height
+            }}>
             <div
                 style={{
                     position: "absolute",
@@ -21,11 +32,23 @@ export default function ControlBar() {
             />
         </nav>
     )
+
+    return bar
+
+    // return (
+    //     <Resizable
+    //     onResize={onResize}
+    //     size={{
+    //         height: height
+    //     }}>
+    //         {bar}
+    //     </Resizable>
+    // )
 }
 
 function EditableMQField(props) {
     const {fontSize} = props;
-    const [latex, setLatex] = useState('\\frac{1}{\\sqrt{2}}\\cdot 2')
+    const [latex, setLatex] = useState('\\frac{1}{\\sqrt{2}}\\cdot 2^2')
 
     return (
         <div style={{
