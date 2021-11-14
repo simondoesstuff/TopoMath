@@ -13,10 +13,12 @@ $bg-color: #000000
 $primary: #ffffff
 $accent: #39a8f8
 $text-color: #1f1f1f
-$nav-size: 60px
-$settings-gear-size: 40px
 $border: 2px solid $accent
 $border-radius: 2px
+
+$nav-size: 60px
+$settings-gear-size: 40px
+$info-button-size: 30px
 
 body
   background-color: $bg-color
@@ -45,15 +47,29 @@ ul
   // animate brightness for hover
   transition: filter 300ms
 
-.settings-gear:hover
-  filter: invert(1) brightness(.2)
+  &:hover
+    filter: invert(1) brightness(.2)
 
-.settings-gear:active
-  transform: scale(.8)
-  filter: invert(1) brightness(.6)
+  &:active
+    transform: scale(.8)
+
+.info-button
+  position: absolute
+  bottom: 0
+  right: 0
+  margin: $info-button-size * .2
+  height: $info-button-size
+  width: $info-button-size
+  filter: invert(1) brightness(.7)
+  transition: filter 300ms
+
+  &:hover
+    filter: invert(1) brightness(1)
+
+  &:active
+    transform: scale(.8)
 
 .dropdown
-  //width: 50px
   width: 40vw
   position: absolute
   left: 5px
@@ -62,17 +78,16 @@ ul
   border: $border
   border-radius: $border-radius
   padding: 5px
-  //margin: 20px
   overflow: hidden
   // animate the height
   transition: transform 500ms ease
   transform-origin: top
 
-.dropdown-shrink
-  transform: scaleY(0)
+  &-shrink
+    transform: scaleY(0)
 
-.dropdown-stretch
-  transform: scaleY(1)
+  &-stretch
+    transform: scaleY(1)
 
 .grapick-bar
   padding: 20px 0 20px 0
