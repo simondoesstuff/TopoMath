@@ -1,12 +1,12 @@
 import React from 'react'
 import ControlBar from "./ControlBar";
-import SettingsGear from "./SettingsGear";
+import InfoButton from "./InfoButton";
 
 export default function App() {
   return (
       <>
           <ControlBar/>
-          {/*<SettingsGear/>*/}
+          <InfoButton/>
       </>
   );
 }
