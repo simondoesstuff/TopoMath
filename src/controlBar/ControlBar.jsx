@@ -1,23 +1,29 @@
+// styling
+import "./control-bar.sass"  // main styling
+import "../mathquillStyling/mathquill.scss"  // mathquill styling
+// jsx
 import React, {useState} from "react";
 import {EditableMathField} from "react-mathquill";
 import SettingsGear from "./settings/SettingsGear";
 
-// todo stretchable?
 
 export default function ControlBar() {
-    const defaultHeight = 100;
-    const [height, setHeight] = useState();
+    // todo finish implementing stretchable
 
-    function onResize(mouseEvent, dir, el, delta) {
-        setHeight(el.offsetHeight)
-    }
+    // const defaultHeight = 100;
+    // const [height, setHeight] = useState();
+
+    // function onResize(mouseEvent, dir, el, delta) {
+    //     setHeight(el.offsetHeight)
+    // }
 
     const bar = (
         <nav
             className="control-bar"
-            style={{
-                height: height
-            }}>
+            // style={{
+            //     height: height
+            // }}
+        >
             <div
                 style={{
                     position: "absolute",

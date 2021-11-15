@@ -1,6 +1,7 @@
 import {CSSTransition} from "react-transition-group";
 import React, {useRef} from "react";
-import GrapickBar from "../../ReGrapick";
+import GrapickBar from "reGrapick/ReGrapick";
+import './settings-dropdown.sass' // styling
 
 
 export default function DropdownMenu(props) {

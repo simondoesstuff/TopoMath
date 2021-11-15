@@ -1,4 +1,5 @@
 import {motion} from "framer-motion";
+import './info-modal.sass'
 
 export default function Backdrop({children, onClick}) {
     return (

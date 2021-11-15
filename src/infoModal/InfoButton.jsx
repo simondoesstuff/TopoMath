@@ -1,5 +1,6 @@
-import {ReactComponent as Icon} from "../../svgFiles/info-button.svg";
+import {ReactComponent as Icon} from "../svgFiles/info-button.svg";
 import { motion } from "framer-motion";
+import './info-modal.sass'
 
 export default function InfoButton() {
     return (

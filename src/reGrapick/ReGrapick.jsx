@@ -1,5 +1,7 @@
 import Grapick from "grapick/src/Grapick";
 import React from "react";
+import 'reGrapick.sass'
+
 
 /**
  * React wrapper for the Grapick library
