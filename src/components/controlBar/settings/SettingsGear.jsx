@@ -1,23 +1,35 @@
 import React, {useEffect, useState} from "react";
 import {Fit, Layout, useRive, useStateMachineInput} from "rive-react";
 import SettingsDropdownMenu from "./SettingsDropdown";
+import {motion} from "framer-motion";
 
 export default function SettingsGear() {
     const [open, setOpen] = useState(false)
 
+    /*
+            <motion.button
+            className="info-button"
+            onClick={() => console.log('do a barrel roll!')}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+        >
+            <Icon/>
+        </motion.button>
+     */
+
     return (
-        <div>
-            <a
-                href="#!"
+        <>
+            <motion.button
                 className="settings-gear"
                 onClick={ () => setOpen(!open) }
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
             >
                 <GearIcon open={open}/>
-            </a>
+            </motion.button>
 
             <SettingsDropdownMenu open={open}/>
-        </div>
-
+        </>
     )
 }
 
