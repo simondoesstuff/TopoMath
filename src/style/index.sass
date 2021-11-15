@@ -1,4 +1,4 @@
-//@import "node_modules/normalize-scss/sass/normalize/_import-now.scss"
+//@import "~normalize-scss/sass/normalize/_import-now.scss"
 
 
 body
@@ -31,66 +31,8 @@ ul
   margin: 0
   padding: 0
 
-.control-bar
-  min-height: $nav-size
-  background-color: $primary
-  border-bottom: $border
-  border-bottom-width: 10px
-  display: grid
-  place-items: center
-  overflow: hidden
+button
+  background: none
+  border: none
+  padding: 0
 
-.settings-gear
-  $margin-size: $settings-gear-size * .2
-
-  width: $settings-gear-size
-  height: $settings-gear-size
-  margin: $margin-size
-  display: flex
-  // animate brightness for hover
-  transition: filter 300ms
-
-  &:hover
-    filter: invert(1) brightness(.2)
-
-  &:active
-    transform: scale(.8)
-
-.info-button
-  position: absolute
-  bottom: 0
-  right: 0
-  margin: $info-button-size * .2
-  height: $info-button-size
-  width: $info-button-size
-  filter: invert(1) brightness(.7)
-  transition: filter 300ms
-
-  &:hover
-    filter: invert(1) brightness(1)
-
-  &:active
-    transform: scale(.8)
-
-.dropdown
-  width: 40vw
-  position: absolute
-  left: 5px
-  z-index: 1
-  background-color: $primary
-  border: $border
-  border-radius: $border-radius
-  padding: 5px
-  overflow: hidden
-  // animate the height
-  transition: transform 500ms ease
-  transform-origin: top
-
-  &-shrink
-    transform: scaleY(0)
-
-  &-stretch
-    transform: scaleY(1)
-
-.grapick-bar
-  padding: 20px 0 20px 0

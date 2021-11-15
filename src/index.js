@@ -2,11 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // css styling
-import './style/index.sass';
-import './style/mathquill/mathquill.scss'   // mathquill styling
-import 'grapick/dist/grapick.min.css'   // grapick styling
 
-import App from './App';
+import './style/mathquill/mathquill.scss';  // mathquill
+import './style/reGrapick.sass';            // reGrapick
+
+import './style/index.sass';                // general
+import './style/info-modal.sass';           // info modal
+import './style/settings-dropdown.sass';    // settings gear
+import './style/control-bar.sass';    // control bar
+
+// jsx
+
+import App from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>

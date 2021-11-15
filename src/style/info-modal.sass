@@ -1,0 +1,34 @@
+@import "index.sass"
+
+.info-button
+  position: absolute
+  bottom: 0
+  right: 0
+  margin: $info-button-size * .2
+  height: $info-button-size
+  width: $info-button-size
+  filter: invert(1) brightness(.7)  // start out dim
+  transition: filter 300ms
+
+  &:hover // light up on hover
+    filter: invert(1) brightness(1)
+
+  &-backdrop
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(0, 0, 0, 0.5)
+    display: flex
+    align-items: center
+    justify-content: center
+
+  &-modal
+    width: clamp(50%, 700px, 90%)
+    height: min(50%, 300px)
+    padding: 0 2rem
+    border-radius: $border-radius
+    display: flex
+    flex-direction: column
+    align-items: center

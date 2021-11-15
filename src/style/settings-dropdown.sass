@@ -1,0 +1,31 @@
+@import "index.sass"
+
+.settings-gear
+  $margin-size: $settings-gear-size * .2
+
+  width: $settings-gear-size
+  height: $settings-gear-size
+  margin: $margin-size
+  display: flex
+  // animate brightness for hover
+  transition: filter 300ms
+
+.dropdown
+  width: 40vw
+  position: absolute
+  left: 5px
+  z-index: 1
+  background-color: $primary
+  border: $border
+  border-radius: $border-radius
+  padding: 5px
+  overflow: hidden
+  // animate the height
+  transition: transform 500ms ease
+  transform-origin: top
+
+  &-shrink
+    transform: scaleY(0)
+
+  &-stretch
+    transform: scaleY(1)
