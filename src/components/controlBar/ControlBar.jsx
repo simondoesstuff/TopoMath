@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {EditableMathField} from "react-mathquill";
-import SettingsGear from "./SettingsGear";
+import SettingsGear from "./settings/SettingsGear";
 
 // todo stretchable?
 

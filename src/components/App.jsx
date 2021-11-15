@@ -1,6 +1,6 @@
 import React from 'react'
-import ControlBar from "./ControlBar";
-import InfoButton from "./InfoButton";
+import ControlBar from "./controlBar/ControlBar";
+import InfoButton from "./infoModal/InfoButton";
 
 export default function App() {
   return (
