@@ -4,7 +4,7 @@ import './info-modal.sass'
 export default function Backdrop({children, onClick}) {
     return (
         <motion.div
-            className="backdrop"
+            className="infoPage-backdrop"
             onClick={onClick}
             initial={{opacity: 0}}
             animate={{opacity: 1}}
