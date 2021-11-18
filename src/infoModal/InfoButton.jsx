@@ -2,7 +2,8 @@ import {ReactComponent as Icon} from "../svgFiles/info-button.svg";
 import {motion, AnimatePresence} from "framer-motion";
 import './info-modal.sass'
 import {useState} from "react";
-import InfoPageModal from "./InfoPageModal";
+import InfoModalWindow from "./InfoModalWindow";
+import InfoPageContents from "./InfoPageContents";
 
 export default function InfoButton() {
     const [open, setOpen] = useState(false);
@@ -16,22 +17,9 @@ export default function InfoButton() {
                 // finish animating before unmount
                 exitBeforeEnter={true}
             >
-                {open && <InfoPageModal onClose={() => setOpen(false)}>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                    Hello there! What are you doing?! <br/>
-                </InfoPageModal>
+                {open && <InfoModalWindow onClose={() => setOpen(false)}>
+                    <InfoPageContents/>
+                </InfoModalWindow>
                 }
             </AnimatePresence>
 

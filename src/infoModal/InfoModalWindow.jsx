@@ -3,7 +3,7 @@ import Backdrop from "./Backdrop";
 import './info-modal.sass'
 
 
-export default function InfoPageModal({onClose, children}) {
+export default function InfoModalWindow({onClose, children}) {
     const dropIn = {
         hidden: {
             y: '-100vh',
