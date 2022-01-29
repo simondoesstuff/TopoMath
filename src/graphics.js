@@ -1,15 +1,8 @@
-import * as Heights from "./heightMap";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import Stats from "three/examples/jsm/libs/stats.module";
-import { OutlineEffect } from "three/examples/jsm/effects/OutlineEffect.js";
-import domLog, { lazyLog } from "./outputUtil";
-import { BufferAttribute } from "three";
+import * as EQPlane from "./equationPlane";
 
-const length = 120;
-const segments = 200;
-const lerpMin = .2;
-const changeSmoothness = 0.3;
 
 const lighting = {
     ambientIntensity: undefined,
@@ -18,6 +11,7 @@ const lighting = {
 
 let scene, camera, renderer, controls, mainLight, stats;
 let autoRotateObjects = [];
+let updateFrameHooks = [];
 
 // scene, camera
 scene = new THREE.Scene();
@@ -80,109 +74,11 @@ autoRotateObjects.push(torus);
 scene.add(torus);
 
 // plane
-const planeGeometry = new THREE.PlaneGeometry(
-    length,
-    length,
-    segments,
-    segments
-);
-
-const planeMaterial = new THREE.MeshNormalMaterial({
-    //   vertexColors: THREE.VertexColors,
-    //   color: 0xbdf3fa,
-    side: THREE.DoubleSide,
-});
-
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.rotation.x = Math.PI / 2;
-
+const plane = EQPlane.newMesh();
+updateFrameHooks.push(EQPlane.updateFrame)
 scene.add(plane);
 
-// used for updatePlane()           // todo move to js file only for plane
-let planeSmoothingVerticiesDone = [];
-let planeSmoothingVerticiesLeft;    // number
-let dontEvenTryToUpdateThePlane = false;
-
-/**
- * Update all height values in the plane.
- */
-export function updatePlane() {
-    Heights.update();
-
-    planeSmoothingVerticiesLeft = planeGeometry.getAttribute('position').count;
-    planeSmoothingVerticiesDone = [];
-
-    dontEvenTryToUpdateThePlane = false;
-}
-
-function animatePlane() {
-    if (dontEvenTryToUpdateThePlane) return;
-
-    let positions = planeGeometry.getAttribute("position");
-    let updatedSomething = false;
-
-    for (let i = 0; i < positions.count; i++) {
-        // in the plane's local grid, X & Y are horizontal and Z
-
-        if (planeSmoothingVerticiesLeft == 0) {
-            dontEvenTryToUpdateThePlane = true;
-            continue;
-        }
-
-        let x = positions.getX(i);
-        let y = positions.getY(i);
-        let z = positions.getZ(i);
-
-        // graphically (+) is down/right, but mathematically it is up/left.
-        // these align each axis to make more sense mathematically
-        x *= -1;
-        y *= -1;
-
-        let newZ;
-
-        try {
-            // this may throw an error because it tried to evaluate with a reference to a variable that doesn't exist
-            newZ = Heights.evaluate(x, y);
-
-            // graphically (+) is down, but mathematically it is up.
-            // aligns axis to make more sense mathematically
-            newZ *= -1;
-        } catch (e) {
-            // stop showing the plane
-            plane.visible = false;
-            dontEvenTryToUpdateThePlane = true;
-            return;
-        }
-
-        // if close enough
-        if (Math.abs(newZ - z) < lerpMin) {
-            z = newZ;
-
-            if (!planeSmoothingVerticiesDone[i]) {
-                // close enough but not yet done
-                planeSmoothingVerticiesDone[i] = true;
-                planeSmoothingVerticiesLeft--;
-            } else {
-                // close enough and already done
-                continue;
-            }
-        } else {
-            // lerp
-            z = z + changeSmoothness * (newZ - z);
-        }
-
-        positions.setZ(i, z);
-        updatedSomething = true;
-        positions.needsUpdate = true;
-    }
-
-    if (updatedSomething) {
-        lazyLog('computing normals');   // todo remove
-        planeGeometry.computeVertexNormals();
-    }
-
-    plane.visible = true;
-}
+export const updatePlaneExpression = EQPlane.newExpression;
 
 // event: window resize
 function onWindowResize() {
@@ -192,24 +88,30 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
+window.addEventListener("resize", onWindowResize);
+
 // animation loop
-function animate() {
-    requestAnimationFrame(animate);
+function updateFrame() {
+    requestAnimationFrame(updateFrame);
     // const deltaTime = Math.min( 0.05, clock.getDelta() ) / STEPS_PER_FRAME;
 
+    // rotate objects on the screen
     for (const obj of autoRotateObjects) {
         obj.rotation.x += 0.003;
         obj.rotation.y += 0.003;
         obj.rotation.z += 0.003;
     }
 
+    // ripple updateFrame to the all the hooks
+    for (const hook of updateFrameHooks) {
+        hook()
+    }
+
     stats.update();
-    animatePlane();
     controls.update();
 
     renderer.render(scene, camera);
 }
 
-// start animation loop
-animate();
-window.addEventListener("resize", onWindowResize);
+// start loop
+updateFrame();
