@@ -16,6 +16,10 @@ export function domLog(msg) {
 let lastSend = 0;
 let lazyQueue = [];
 
+/**
+ * Does not call domLog (doesnt update dom, only console).
+ * @param msg
+ */
 export function lazyLog(msg) {
     let delta = Date.now() - lastSend;
 
