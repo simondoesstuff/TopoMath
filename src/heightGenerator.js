@@ -1,6 +1,6 @@
 import * as math from "mathjs";
 import {transcribeEq} from "./equationInterpreter";
-import {getNoiseValue} from "./noiseValueGenerator";
+import * as Noise from "./noiseValueGenerator";
 
 
 let activeEvaluator = (scope) => null;
@@ -87,7 +87,7 @@ export function evaluateAt(x, y) {
             if (x === "undefined" || y === "undefined") throw "Missing arguments.";
             // return 0;
 
-            return getNoiseValue(x, y);
+            return Noise.getNoiseValue(x, y);
         },
     };
 
@@ -100,4 +100,88 @@ export function evaluateAt(x, y) {
     }
 
     return v;
+}
+
+/**
+ * Returns (approximately) the maximum height value to be produced
+ */
+export function approximateMax() {
+    const x = 0;    // setting these to 0 because they should be irrelevant here
+    const y = 0;    // setting these to 0 because they should be irrelevant here
+
+    let scope = {
+        x,
+        y,
+
+        f: (x, y) => {
+            // not sure if I should be throwing an error here to just returning 0
+
+            if (x === "undefined" || y === "undefined") throw "Missing arguments.";
+            // return 0;
+
+            // here we are forcing the noise generator to give us a max value
+            return Noise.approximateMax();
+        },
+    };
+
+    let v;
+
+    try {
+        v = activeEvaluator(scope);
+    } catch (e) {
+        v = null;
+    }
+
+    return v;
+}
+
+/**
+ * Returns (approximately) the maximum height value to be produced
+ */
+export function approximateMin() {
+    const x = 0;    // setting these to 0 because they should be irrelevant here
+    const y = 0;    // setting these to 0 because they should be irrelevant here
+
+    let scope = {
+        x,
+        y,
+
+        f: (x, y) => {
+            // not sure if I should be throwing an error here to just returning 0
+
+            if (x === "undefined" || y === "undefined") throw "Missing arguments.";
+            // return 0;
+
+            // here we are forcing the noise generator to give us a max value
+            return Noise.approximateMin();
+        },
+    };
+
+    let v;
+
+    try {
+        v = activeEvaluator(scope);
+    } catch (e) {
+        v = null;
+    }
+
+    return v;
+}
+
+/**
+ * Scales a value between the absolute
+ * min and max of the height map.
+ * @param value
+ * @return Number percentage
+ */
+export function normalizeValue(value) {
+    let min = approximateMin();
+    let max = approximateMax();
+
+    max -= min;
+    value -= min;
+
+    if (max === 0) return 0;
+
+    return value / max;
 }
