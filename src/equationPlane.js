@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import * as ValueGen from "./valueGenerator"
+import * as ValueGen from "./heightGenerator"
 import {lazyLog} from "./outputUtil";
 
 // these are initialized in mesh

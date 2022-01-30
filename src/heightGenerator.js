@@ -1,39 +1,9 @@
-import {Noise} from "noisejs";
 import * as math from "mathjs";
 import {transcribeEq} from "./equationInterpreter";
-import {lazyLog} from "./outputUtil";
+import {getNoiseValue} from "./noiseValueGenerator";
 
-const noise = new Noise();
+
 let activeEvaluator = (scope) => null;
-
-/**
- * Scales the horizontal component of the noise generator
- */
-const horiScale = 0.015;
-
-/**
- * Scales the vertical/horizontal components of the noise generator
- */
-const vertiScale = 20;
-
-function getNoiseValue(x, y) {
-    x *= horiScale;
-    y *= horiScale;
-
-    let noiseVal = noise.simplex2(x, y);
-
-    noiseVal *= vertiScale;
-
-    return noiseVal;
-}
-
-/**
- * Update the current seed used by the noise generator
- * @param {*} newSeed
- */
-export function updateSeed(newSeed = Math.random()) {
-    noise.seed(newSeed);
-}
 
 /**
  * Fetch and parse a new latex expression to model the height map
@@ -131,5 +101,3 @@ export function evaluateAt(x, y) {
 
     return v;
 }
-
-updateSeed(Math.random());
