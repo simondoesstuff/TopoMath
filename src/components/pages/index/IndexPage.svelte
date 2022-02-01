@@ -1,9 +1,6 @@
 <script>
   import {onMount} from "svelte";
-  import { browser } from '$app/env';
 
-  let elProblem;
-  let elAnswer;
   let elCanvas;
 
   let shade = true;
@@ -16,32 +13,12 @@
 
   const jlog = s => log(JSON.stringify(s, null, 1));
 
-  // ----- math quill
-
-  onMount(async () => {
-    log("\t--- mounted.")
-
-    await import('mathquill/build/mathquill.js');
-    await import('mathquill/build/mathquill.css');
-
-    const MQ = window.MathQuill.getInterface(2);
-
-    MQ.StaticMath(elProblem);
-
-    var answer = MQ.MathField(elAnswer, {
-      handlers: {
-        edit: function() {
-          log(answer.latex())
-        }
-      }
-    });
-
-    log("\t--- done.")
-  });
+  log("\t--- initialized.")
 
   // ----- three JS
 
   import * as THREE from 'three/src/Three.js';
+  import EditableMathField from "../../mathquill/EditableMathField.svelte";
 
   let camera, scene, renderer;
   let geometry, material, mesh;
@@ -75,7 +52,6 @@
 
     renderer.render(scene, camera);
   }
-
 </script>
 
 
@@ -83,17 +59,17 @@
 
 
 
-<p class="text-white">
-    Solve <span bind:this={elProblem}>ax^2 + bx + c = 0</span>:
-    <span bind:this={elAnswer}>x=</span>
-</p>
+<div class="text-white">
+    Solve:
+    <EditableMathField on:edit={latex => log(latex.detail)}>x=</EditableMathField>
+</div>
 
 <pre class="
  m-5
  text-red-400
 ">
     {#each logs as log, i}
-        <pre class:text-blue-500="{i % 2 === 0}">{log}</pre>
+        <pre class:text-blue-500={i % 2 === 0}>{log}</pre>
 	{/each}
 </pre>
 
