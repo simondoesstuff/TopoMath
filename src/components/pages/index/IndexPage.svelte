@@ -18,7 +18,7 @@
 
 
 <div>
-    <ExpressionBar on:latexedit={e => elLog.log(e.detail.latex)}/>
+    <ExpressionBar on:latexedit={(e) => elLog.log(e.detail.latex)}/>
 
     <div class="absolute top-0 right-0 z-50 mr-3 text-right opacity-40">
         <DomLog bind:this={elLog}/>

@@ -1,15 +1,14 @@
 <script>
   import {createEventDispatcher, onMount} from "svelte";
 
-    const dispatch = createEventDispatcher();
+    const onEditLatex = createEventDispatcher();
+    let elField;
 
-    function onEdit(latex) {
-      dispatch('latexedit', {
-        latex
+    function onEdit(newLatex) {
+      onEditLatex('latexedit', {
+        latex: newLatex
       });
     }
-
-    let elField;
 
     onMount(async () => {
       await import('mathquill/build/mathquill.js')
@@ -34,7 +33,6 @@
 <svelte:head>
     <link rel="stylesheet" href="./mathquillStyling/customMathquill.css">
 </svelte:head>
-
 
 
 <span bind:this={elField}>

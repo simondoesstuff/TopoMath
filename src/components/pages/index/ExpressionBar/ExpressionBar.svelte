@@ -1,9 +1,21 @@
 <script>
   import EditableMathField from "../../../mathquill/EditableMathField.svelte";
   import {fly} from 'svelte/transition';
+  import {createEventDispatcher} from "svelte";
 
 
+  let latex = 'f(x)';
   let contracted = false;
+
+  const onEditLatex = createEventDispatcher();
+
+  function handleLatexEdit(e) {
+    latex = e.detail.latex;
+
+    onEditLatex('latexedit', {
+      latex: latex
+    })
+  }
 </script>
 
 
@@ -13,11 +25,10 @@
 {#if !contracted}
     <div transition:fly={{y: -100}}>
         <div class="grid place-items-center p-3 text-5xl text-white bg-indigo-900">
-            <EditableMathField on:latexedit>
-                f(x)
+            <EditableMathField on:latexedit={handleLatexEdit}>
+                {latex}
             </EditableMathField>
         </div>
-
 
         <div
                 on:click={() => contracted = !contracted}
