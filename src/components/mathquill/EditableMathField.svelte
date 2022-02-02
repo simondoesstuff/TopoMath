@@ -13,8 +13,6 @@
 
     onMount(async () => {
       await import('mathquill/build/mathquill.js')
-      // await import('mathquill/build/mathquill.css')
-      await import('./customMathquill.css')
 
       // todo remove global. check out mathquill's noConflict()
       if (!window.MQ) {
@@ -30,6 +28,14 @@
       });
     })
 </script>
+
+
+
+<svelte:head>
+    <link rel="stylesheet" href="./mathquillStyling/customMathquill.css">
+</svelte:head>
+
+
 
 <span bind:this={elField}>
     <slot></slot>

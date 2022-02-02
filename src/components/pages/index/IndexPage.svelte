@@ -1,8 +1,8 @@
 <script>
-  import EditableMathField from "../../mathquill/EditableMathField.svelte";
   import DomLog from "../../DomLog.svelte";
-  import {createScene} from "../../threeJsScene/Scene.js";
+  import {createScene} from "../../../scripts/graphics/threeJsScene/Scene.js";
   import {onMount} from "svelte";
+  import ExpressionBar from "./ExpressionBar/ExpressionBar.svelte";
 
 
   let elCanvas;
@@ -19,13 +19,7 @@
 
 <div>
     <div class="grid place-items-center p-3 text-5xl text-white bg-indigo-900">
-        <!--                todo how do shadow??????????????????       -->
-        <EditableMathField
-                on:latexedit={e => elLog.log(e.detail.latex)}
-                class="shadow shadow-lg shadow-black"
-        >
-            f(x)
-        </EditableMathField>
+        <ExpressionBar on:latexedit={e => elLog.log(e.detail.latex)}/>
     </div>
 
     <div class="absolute top-0 right-0 z-50 mr-3 text-right opacity-40">
