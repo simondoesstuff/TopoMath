@@ -1,24 +1,20 @@
 <script>
-  import {onMount} from "svelte";
+  import EditableMathField from "../../mathquill/EditableMathField.svelte";
+  import DomLog from "../../DomLog.svelte";
+  import * as Three from 'three';
+
 
   let elCanvas;
-
-  let shade = true;
-  let logs = [];
-
-  const log = s => {
-    logs = [...logs, s]
-    shade = !shade;
-  }
-
-  const jlog = s => log(JSON.stringify(s, null, 1));
-
-  log("\t--- initialized.")
+  let elLog;
 
   // ----- three JS
 
-  import * as THREE from 'three/src/Three.js';
-  import EditableMathField from "../../mathquill/EditableMathField.svelte";
+  import {onMount} from "svelte";
+
+  onMount(async () => {
+    elLog.log('\t---mounted...');
+  })
+
 
   let camera, scene, renderer;
   let geometry, material, mesh;
@@ -26,18 +22,18 @@
   onMount(() => init())
 
   function init() {
-    camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
+    camera = new Three.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 10);
     camera.position.z = 1;
 
-    scene = new THREE.Scene();
+    scene = new Three.Scene();
 
-    geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-    material = new THREE.MeshNormalMaterial();
+    geometry = new Three.BoxGeometry(0.2, 0.2, 0.2);
+    material = new Three.MeshNormalMaterial();
 
-    mesh = new THREE.Mesh(geometry, material);
+    mesh = new Three.Mesh(geometry, material);
     scene.add(mesh);
 
-    renderer = new THREE.WebGLRenderer({
+    renderer = new Three.WebGLRenderer({
       canvas: elCanvas,
       antialias: true
     });
@@ -58,22 +54,27 @@
 
 
 
-
-<div class="text-white">
+<div>
     Solve:
-    <EditableMathField on:edit={latex => log(latex.detail)}>x=</EditableMathField>
+    <EditableMathField on:latexedit={e => elLog.log(e.detail.latex)}>
+        x=
+    </EditableMathField>
 </div>
 
-<pre class="
- m-5
- text-red-400
-">
-    {#each logs as log, i}
-        <pre class:text-blue-500={i % 2 === 0}>{log}</pre>
-	{/each}
-</pre>
-
-<div class="absolute top-0 left-0 -z-30">
-    <canvas bind:this={elCanvas}></canvas>
+<div class="absolute top-0 right-0 z-50 text-right opacity-30">
+    <DomLog bind:this={elLog}/>
 </div>
 
+<canvas bind:this={elCanvas}></canvas>
+
+
+
+
+
+<style lang="scss">
+  :global(body) {
+    background-color: black;
+    padding: 1rem;
+    overflow-x: hidden;
+  }
+</style>
