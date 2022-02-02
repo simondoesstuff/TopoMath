@@ -10,8 +10,10 @@
   const onEditLatex = createEventDispatcher();
 
   function handleLatexEdit(e) {
+    // preserve state
     latex = e.detail.latex;
 
+    // forward the event
     onEditLatex('latexedit', {
       latex: latex
     })
