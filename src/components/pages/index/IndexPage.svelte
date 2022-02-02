@@ -18,9 +18,7 @@
 
 
 <div>
-    <div class="grid place-items-center p-3 text-5xl text-white bg-indigo-900">
-        <ExpressionBar on:latexedit={e => elLog.log(e.detail.latex)}/>
-    </div>
+    <ExpressionBar on:latexedit={e => elLog.log(e.detail.latex)}/>
 
     <div class="absolute top-0 right-0 z-50 mr-3 text-right opacity-40">
         <DomLog bind:this={elLog}/>
