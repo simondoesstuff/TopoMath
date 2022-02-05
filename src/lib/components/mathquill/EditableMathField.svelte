@@ -1,6 +1,7 @@
 <script>
-  import {createEventDispatcher, onMount} from "svelte";
+    import {createEventDispatcher, onMount} from "svelte";
 
+    export let clazz;
     const onEditLatex = createEventDispatcher();
     let elField;
 
@@ -34,7 +35,8 @@
     <link rel="stylesheet" href="./mathquillStyling/customMathquill.css">
 </svelte:head>
 
-
-<span bind:this={elField}>
-    <slot></slot>
-</span>
+<div class={clazz}>
+    <span bind:this={elField}>
+        <slot></slot>
+    </span>
+</div>
