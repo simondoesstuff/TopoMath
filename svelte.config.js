@@ -8,7 +8,3 @@ const config = {
 };
 
 export default config;
-
-
-
-// todo set up jsconfig.json 's paths
