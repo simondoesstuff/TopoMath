@@ -1,9 +1,11 @@
 <script>
-    import {createEventDispatcher, onMount} from "svelte";
+    import {createEventDispatcher, onDestroy, onMount} from "svelte";
 
     export let clazz;
     const onEditLatex = createEventDispatcher();
+
     let elField;
+    let mqField;
 
     function onEdit(newLatex) {
       onEditLatex('latexedit', {
@@ -11,21 +13,29 @@
       });
     }
 
+    async function MQ() {
+        // todo remove global. check out mathquill's noConflict()
+        if (!window.MQ) {
+            await import('mathquill/build/mathquill.js')
+
+            window.MQ = window.MathQuill.getInterface(2);
+        }
+
+        return window.MQ;
+    }
+
     onMount(async () => {
-      await import('mathquill/build/mathquill.js')
-
-      // todo remove global. check out mathquill's noConflict()
-      if (!window.MQ) {
-        window.MQ = window.MathQuill.getInterface(2);
-      }
-
-      const MQ = window.MQ;
-
-      const mqField = MQ.MathField(elField, {
+      mqField = (await MQ()).MathField(elField, {
         handlers: {
           edit: () => onEdit(mqField.latex())
         }
       });
+    })
+
+    onDestroy(() => {
+        if (mqField) {
+            mqField.revert();
+        }
     })
 </script>
 
@@ -35,7 +45,7 @@
     <link rel="stylesheet" href="./mathquillStyling/customMathquill.css">
 </svelte:head>
 
-<div class={clazz}>
+<div class={`${clazz} grid place-items-center`}>
     <span bind:this={elField}>
         <slot></slot>
     </span>
