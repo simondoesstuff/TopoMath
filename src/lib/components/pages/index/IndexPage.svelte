@@ -1,8 +1,7 @@
 <script>
-  import DomLog from "../../DomLog.svelte";
-  import {createScene} from "../../../scripts/graphics/threeJsScene/Scene.js";
+  import {createScene} from "$lib/scripts/graphics/threeJsScene/Scene.js";
   import {onMount} from "svelte";
-  import ExpressionBar from "./ControlBar/ControlBar.svelte";
+  import ExpressionBar from "./ControlBar.svelte";
 
 
   let elCanvas;
@@ -19,9 +18,11 @@
 
 <ExpressionBar on:latexedit={(e) => elLog.log(e.detail.latex)}/>
 
-<div class="absolute top-0 right-0 z-50 mr-3 text-right opacity-40">
-    <DomLog bind:this={elLog}/>
-</div>
+
+<!--    todo remove domLog?     -->
+<!--<div class="absolute top-0 right-0 z-50 mr-3 text-right opacity-40">-->
+<!--    <DomLog bind:this={elLog}/>-->
+<!--</div>-->
 
 <canvas bind:this={elCanvas} class="absolute top-0 right-0 -z-30"></canvas>
 
