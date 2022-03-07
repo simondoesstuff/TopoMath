@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .btn-soft {
+        @apply p-2 bg-gray-800 bg-opacity-95 rounded-3xl border-2 border-opacity-60 opacity-70 border-solid font-semibold
+        transition-colors duration-500 cursor-pointer block
+        hover:border-transparent hover:opacity-100;
+    }
+}
+
+@layer utilities {
+    .transition-height {
+        transition: height;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+    }
+}

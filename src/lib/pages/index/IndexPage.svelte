@@ -1,19 +1,8 @@
 <script>
-  import {createScene} from "$lib/scripts/graphics/threeJsScene/Scene.js";
-  import {onMount} from "svelte";
-  import ExpressionBar from "./ControlBar.svelte";
+    import ExpressionBar from "./ControlBar.svelte";
 
-
-  let elCanvas;
-  let elLog;
-
-  onMount(() => {
-    createScene(elCanvas);
-  });
+    let elLog;
 </script>
-
-
-
 
 
 <ExpressionBar on:latexedit={(e) => elLog.log(e.detail.latex)}/>
@@ -24,10 +13,7 @@
 <!--    <DomLog bind:this={elLog}/>-->
 <!--</div>-->
 
-<canvas bind:this={elCanvas} class="absolute top-0 right-0 -z-30"></canvas>
-
-
-
+<!--<canvas bind:this={elCanvas} class="absolute top-0 right-0 -z-30"></canvas>-->
 
 
 <style>

@@ -1,7 +1,7 @@
 <script>
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
 
-    export let clazz;
+    export let _class;
     const onEditLatex = createEventDispatcher();
 
     let elField;
@@ -45,7 +45,7 @@
     <link rel="stylesheet" href="./mathquillStyling/customMathquill.css">
 </svelte:head>
 
-<div class={`${clazz} grid place-items-center`}>
+<div class={`${_class} grid place-items-center`}>
     <span bind:this={elField}>
         <slot></slot>
     </span>
