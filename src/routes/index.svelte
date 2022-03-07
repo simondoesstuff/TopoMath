@@ -1,5 +1,27 @@
 <script>
-  import IndexPage from "$lib/pages/index/IndexPage.svelte";
+    import ExpressionBar from "$pages/index/ControlBar.svelte";
+    import ThreeScene from "$components/threeJS/ThreeScene.svelte";
+
+    let elLog;
 </script>
 
-<IndexPage/>
+
+<div class="absolute z-10">
+    <ExpressionBar on:latexedit={(e) => elLog.log(e.detail.latex)}/>
+</div>
+
+<ThreeScene/>
+
+<!--    todo remove domLog?     -->
+<!--<div class="absolute top-0 right-0 z-50 mr-3 text-right opacity-40">-->
+<!--    <DomLog bind:this={elLog}/>-->
+<!--</div>-->
+
+<!--<canvas bind:this={elCanvas} class="absolute top-0 right-0 -z-30"></canvas>-->
+
+
+<style>
+    :global(body) {
+        background-color: black;
+    }
+</style>
