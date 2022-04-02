@@ -17,7 +17,7 @@
     });
 </script>
 
-<Canvas antialias background={new THREE.Color('papayawhip')}>
+<Canvas antialias background={new THREE.Color('#21252b')}>
     <Mesh
             geometry={new THREE.BoxGeometry()}
             material={new THREE.MeshStandardMaterial()}

@@ -5,10 +5,10 @@
     import * as SC from "svelte-cubed";
     import * as Svelte from "svelte";
 
-    export let expression = 'f(x)';
+    let expression = 'f(x)';
+
     export let length = 120;
     export let segments = 200;
-    // these settings configure the lerp
     export let lerpThreshold = .01;     // how far we should lerp
     export let changeSmoothness = 0.1;  // how fast we should lerp
 
@@ -25,7 +25,7 @@
     /**
      * Update all height values in the plane.
      */
-    const newExpression = (latexExp) => {
+    export const newExpression = (latexExp) => {
         ValueGen.newExpression(latexExp)
 
         let positions = geometry.getAttribute('position');
@@ -99,7 +99,32 @@
             positions.setZ(vertexIndex, z);
             return true;
         });
+
+        positions.needsUpdate = true;
     }
+
+    const computeColors = () => {
+        const count = geometry.attributes.position.count;
+        geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(count * 3), 3));
+        const colors = geometry.attributes.color;
+        const normals = geometry.attributes.normal;
+
+        for (let i = 0; i < count; i++) {
+            const z = Math.abs(normals.getZ(i));
+            colors.setXYZ(i, .6, z, .9);
+        }
+
+        colors.needsUpdate = true;
+    }
+
+
+
+    // todo add a set color function that takes in a color function
+    // todo restructure the reactive state to work with methods to change data instead of reactive state
+
+
+
+
 
     // when the expression is updated, the plane must update
     $: newExpression(expression);
@@ -112,37 +137,20 @@
         if (verticesInMotion.length === 0) return
 
         lerpHeights();
-        geometry.getAttribute('position').needsUpdate = true;
         geometry.computeVertexNormals();
+        computeColors();
     });
 
     // give the mesh a default expression
-    Svelte.onMount(async () => {
+    Svelte.onMount(() => {
         newExpression(expression);
-
-        const count = geometry.attributes.position.count;
-        geometry.setAttribute( 'color', new THREE.BufferAttribute( new Float32Array( count * 3 ), 3 ) );
-
-        setTimeout(() => {
-            const color = new THREE.Color();
-            const position = geometry.attributes.position;
-            const colors = geometry.attributes.color;
-
-            for (let i = 0; i < count; i++) {
-                color.setHSL(position.getZ(i), 1.0, 0.5);
-                colors.setXYZ(i, color.r, color.g, color.b);
-            }
-
-            console.log('done');
-            colors.needsUpdate = true;
-        }, 2000);
     });
 </script>
 
 
 <Mesh
     geometry={geometry}
-    material={new THREE.MeshStandardMaterial({side: THREE.DoubleSide, vertexColors: true})}
+    material={new THREE.MeshPhongMaterial({side: THREE.DoubleSide, vertexColors: true})}
     rotation={[-Math.PI/2, 0, 0]}
     position={[0, -5, 0]}
     receiveShadow
