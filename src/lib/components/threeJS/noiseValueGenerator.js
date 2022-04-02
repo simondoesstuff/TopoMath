@@ -1,4 +1,5 @@
-import {Noise} from "noisejs";
+import NoiseJs from "noisejs";
+const {Noise} = NoiseJs;
 
 /**
  * Scales the horizontal component of the noise generator
