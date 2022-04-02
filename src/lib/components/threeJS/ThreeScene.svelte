@@ -1,10 +1,14 @@
 <script>
     import * as THREE from 'three';
-    import * as SC from 'svelte-cubed';
+    // two svelte cubed imports are necessary because the IDE can't recognize
+    // the second import as a svelte component
+    import {AmbientLight, Canvas, DirectionalLight, Mesh, OrbitControls, PerspectiveCamera} from "svelte-cubed";
+    import * as SC from "svelte-cubed";
+    import ExpressionPlane from "./ExpressionPlane.svelte";
 
-    let width = 1;
-    let height = 1;
-    let depth = 1;
+
+    // latex expression string
+    export let latex;
 
     let spin = 0;
 
@@ -13,15 +17,17 @@
     });
 </script>
 
-<SC.Canvas antialias background={new THREE.Color('papayawhip')}>
-    <SC.Mesh
+<Canvas antialias background={new THREE.Color('papayawhip')}>
+    <Mesh
             geometry={new THREE.BoxGeometry()}
-            material={new THREE.MeshStandardMaterial({ color: 0xff3e00 })}
-            scale={[width, height, depth]}
+            material={new THREE.MeshStandardMaterial()}
+            scale={[1, 1, 1]}
             rotation={[0, spin, 0]}
     />
-    <SC.PerspectiveCamera position={[1, 1, 3]}/>
-    <SC.OrbitControls enableZoom={false}/>
-    <SC.AmbientLight intensity={0.6}/>
-    <SC.DirectionalLight intensity={0.6} position={[-2, 3, 2]}/>
-</SC.Canvas>
+    <PerspectiveCamera position={[150, 75, 0]}/>
+    <OrbitControls enablePan dampingFactor={0.05} enableDamping enableZoom/>
+    <AmbientLight intensity={0.6}/>
+    <DirectionalLight intensity={0.6} position={[-2, 3, 2]}/>
+
+    <ExpressionPlane expression={latex}/>
+</Canvas>
