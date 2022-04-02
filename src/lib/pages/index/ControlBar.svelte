@@ -1,125 +1,75 @@
 <script>
     import EditableMathField from "$lib/components/mathquill/EditableMathField.svelte";
     import {fly} from 'svelte/transition';
-    import {createEventDispatcher} from "svelte";
-    import SoftButton from "$lib/components/SoftButton.svelte";
-    import MenuIcon from '$lib/svgIcons/MenuIcon.svelte'
     import MinusIcon from "$lib/svgIcons/MinusIcon.svelte";
     import PlusIcon from "$lib/svgIcons/PlusIcon.svelte";
-    import XIcon from "$lib/svgIcons/XIcon.svelte";
-    import GlobeAltIcon from "$lib/svgIcons/GlobeAltIcon.svelte";
     import RibbonToggle from "$lib/pages/index/RibbonToggle.svelte";
+    import ColorSwatchIcon from "../../svgIcons/ColorSwatchIcon.svelte";
+    import XIcon from "../../svgIcons/XIcon.svelte";
 
 
-    let latex = 'f(x)';
+    export let latex;
     let contracted = false;
-    let menuMode = false;
-
-    const onEditLatex = createEventDispatcher();
-
-    function handleLatexEdit(e) {
-        // preserve state
-        latex = e.detail.latex;
-
-        // forward the event
-        onEditLatex('latexedit', {
-            latex: latex
-        })
-    }
+    let gradPaneOpen = false;
 </script>
 
 
 {#if !contracted}
     <div transition:fly|local={{y: -100}}>
-        <div
-                class:menuBar="{menuMode}"
-                class:expBar="{!menuMode}"
-                class="flex gap-3 p-3 px-6 align-middle transition-height transition-colors duration-1000"
-        >
-            {#if !menuMode}
+        <div class="flex gap-3 justify-between content-between p-3 px-6 bg-indigo-900 h-32">
+            <!--    Menu/Close Button     -->
+                    <!--   todo is this outer grid center div necessary?    -->
+            <div class="grid place-items-center">
+                <button class="btn-soft" on:click={() => gradPaneOpen = !gradPaneOpen}>
+                    {#if gradPaneOpen}
+                        <XIcon/>
+                    {:else}
+                        <ColorSwatchIcon/>
+                    {/if}
+                </button>
+            </div>
 
-                <!--    Menu Button     -->
-                <SoftButton
-                        variant='expBar'
-                        on:click={() => menuMode = !menuMode}
-                >
-                    <MenuIcon/>
-                </SoftButton>
-
+            {#if gradPaneOpen}
+                <h3>gradients!</h3>
+            {:else}
                 <!--    MQ Expression Box       -->
-                <EditableMathField on:latexedit={handleLatexEdit} _class="text-6xl text-white">
+                <EditableMathField on:latexedit _class="text-6xl text-white">
                     {latex}
                 </EditableMathField>
                 <!--    PlusIcon and MinusIcon Buttons      -->
-                <div>
-                    <button class="expBar btn-soft mb-2">
+                <div class="flex flex-col justify-between">
+                    <button class="btn-soft">
                         <PlusIcon/>
                     </button>
-                    <SoftButton variant="expBar">
+                    <button class="btn-soft">
                         <MinusIcon/>
-                    </SoftButton>
+                    </button>
                 </div>
-
-            {:else}
-
-                <!--    Close Button    -->
-                <SoftButton
-                        _in={node => fly(node, {x: -200})}
-                        variant='menuBar'
-                        on:click={() => menuMode = !menuMode}
-                >
-                    <XIcon/>
-                </SoftButton>
-                <!--    Menu Contents   -->
-                <GlobeAltIcon/>
-
             {/if}
         </div>
-
         <!--    Contraction "Ribbon"            -->
         <RibbonToggle
-                contracted={contracted}
+                contracted={false}
                 on:click={() => contracted = !contracted}
         />
     </div>
 {:else}
-
     <!--    Contraction "Ribbon"            -->
     <RibbonToggle
             flyIn
-            contracted={contracted}
+            contracted={true}
             on:click={() => contracted = !contracted}
     />
-
 {/if}
 
 
+<!-- todo apply btn-soft -->
 <style lang="scss">
-  .menuBar {
-    div {
-      @apply flex-col justify-around bg-indigo-500;
-    }
-
     button {
-      @apply text-indigo-200 border-indigo-200;
-
-      &:hover {
-        @apply text-gray-800 bg-indigo-200;
-      }
-    }
-  }
-
-  .expBar {
-    div {
-      @apply justify-between bg-indigo-900;
-    }
-
-    button {
-      @apply text-gray-300 border-indigo-500;
+      @apply mb-2 text-gray-300 border-indigo-500 ;
 
       &:hover {
         @apply bg-indigo-500;
       }
     }
-  }
 </style>
