@@ -3,16 +3,17 @@
     import {Mesh} from "svelte-cubed";
     import * as ValueGen from "./heightMap.js";
     import * as SC from "svelte-cubed";
-    import * as Svelte from "svelte";
 
-    let expression = 'f(x)';
-
+    export let expression;
+    export let colorFunction = () => new THREE.Color(0, 0, 0);
     export let length = 120;
-    export let segments = 200;
+    export let segments = 100;
     export let lerpThreshold = .01;     // how far we should lerp
     export let changeSmoothness = 0.1;  // how fast we should lerp
 
     let geometry = new THREE.PlaneGeometry(length, length, segments, segments);
+    geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(geometry.attributes.position.count * 3), 3));
+
     let targets = []  // a list of heights matched to mesh vertices by index
     let verticesInMotion = [] // a list of indexes (matching 'targets')
 
@@ -25,10 +26,10 @@
     /**
      * Update all height values in the plane.
      */
-    export const newExpression = (latexExp) => {
+    const newExpression = (latexExp) => {
         ValueGen.newExpression(latexExp)
 
-        let positions = geometry.getAttribute('position');
+        let positions = geometry.attributes.position;
         let vertexCount = positions.count
         reset();
 
@@ -68,7 +69,7 @@
     // heights can be reset to cause the mesh
     // to update.
     const lerpHeights = () => {
-        let positions = geometry.getAttribute('position');
+        let positions = geometry.attributes.position;
 
         verticesInMotion = verticesInMotion.filter(vertexIndex => {
             const targetHeight = targets[vertexIndex];
@@ -103,31 +104,25 @@
         positions.needsUpdate = true;
     }
 
-    const computeColors = () => {
-        const count = geometry.attributes.position.count;
-        geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(count * 3), 3));
-        const colors = geometry.attributes.color;
-        const normals = geometry.attributes.normal;
+    const computeColors = (colorFunction) => {
+        const {color: colors, position: positions, normal: normals} = geometry.attributes;
 
-        for (let i = 0; i < count; i++) {
-            const z = Math.abs(normals.getZ(i));
-            colors.setXYZ(i, .6, z, .9);
+        for (let i = 0; i < positions.count; i++) {
+            const angle = Math.abs(normals.getZ(i));
+            const height = positions.getZ(i);
+
+            let color = colorFunction(angle, height);
+            colors.setXYZ(i, color.r, color.g, color.b);
         }
 
         colors.needsUpdate = true;
     }
 
+    // the plane automatically updates based on parameters
+    $: if (expression) newExpression(expression);
+    $: if (colorFunction) computeColors(colorFunction);
 
-
-    // todo add a set color function that takes in a color function
-    // todo restructure the reactive state to work with methods to change data instead of reactive state
-
-
-
-
-
-    // when the expression is updated, the plane must update
-    $: newExpression(expression);
+    $: console.log(expression)
 
     // called every frame.
     // each frame if the verticies need to ease into new positions
@@ -138,12 +133,7 @@
 
         lerpHeights();
         geometry.computeVertexNormals();
-        computeColors();
-    });
-
-    // give the mesh a default expression
-    Svelte.onMount(() => {
-        newExpression(expression);
+        computeColors(colorFunction);
     });
 </script>
 
