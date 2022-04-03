@@ -33,9 +33,7 @@
                 <h3>gradients!</h3>
             {:else}
                 <!--    MQ Expression Box       -->
-                <EditableMathField on:latexedit _class="text-6xl text-white">
-                    {latex}
-                </EditableMathField>
+                <EditableMathField bind:latex _class="text-6xl text-white"/>
                 <!--    PlusIcon and MinusIcon Buttons      -->
                 <div class="flex flex-col justify-between">
                     <button class="btn-soft">

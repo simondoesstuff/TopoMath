@@ -2,15 +2,18 @@
     import {createEventDispatcher, onDestroy, onMount} from "svelte";
 
     export let _class;
+    export let latex;
     const onEditLatex = createEventDispatcher();
 
     let elField;
     let mqField;
 
     function onEdit(newLatex) {
-      onEditLatex('latexedit', {
-        latex: newLatex
-      });
+        latex = newLatex;
+
+        onEditLatex('latexedit', {
+            latex: newLatex
+        });
     }
 
     async function MQ() {
@@ -25,11 +28,11 @@
     }
 
     onMount(async () => {
-      mqField = (await MQ()).MathField(elField, {
-        handlers: {
-          edit: () => onEdit(mqField.latex())
-        }
-      });
+        mqField = (await MQ()).MathField(elField, {
+            handlers: {
+                edit: () => onEdit(mqField.latex())
+            }
+        });
     })
 
     onDestroy(() => {
@@ -40,13 +43,12 @@
 </script>
 
 
-
 <svelte:head>
     <link rel="stylesheet" href="./mathquillStyling/customMathquill.css">
 </svelte:head>
 
 <div class={`${_class} grid place-items-center`}>
     <span bind:this={elField}>
-        <slot></slot>
+        {latex}
     </span>
 </div>
