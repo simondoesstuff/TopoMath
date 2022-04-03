@@ -174,7 +174,7 @@ export function approximateMin() {
  * @param value
  * @return Number percentage
  */
-export function normalizeValue(value) {
+export function normalizeHeightValue(value) {
     let min = approximateMin();
     let max = approximateMax();
 
