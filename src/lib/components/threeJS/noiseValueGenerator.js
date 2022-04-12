@@ -12,12 +12,15 @@ const horiScale = 0.015;
 const vertiScale = 20;
 
 const noise = new Noise();
+let cache = {}; // noise values are not re-calculated unless the seed changes
 
 export function getNoiseValue(x, y) {
   x *= horiScale;
   y *= horiScale;
 
-  let noiseVal = noise.simplex2(x, y);
+  let noiseVal = cache[`${x}, ${y}`];
+  noiseVal ??= noise.simplex2(x, y);
+  cache[`${x}, ${y}`] = noiseVal;
 
   noiseVal *= vertiScale;
 
@@ -33,6 +36,7 @@ export const approximateMin = () => -1 * vertiScale;
  * @param {*} newSeed
  */
 export function updateSeed(newSeed = Math.random()) {
+  cache = {};
   noise.seed(newSeed);
 }
 
