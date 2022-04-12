@@ -24,8 +24,9 @@
     <Mesh
         geometry={new THREE.BoxGeometry()}
         material={new THREE.MeshStandardMaterial({ color: 0xff3e00 })}
-        scale={[10, 10, 10]}
+        scale={[1, 1, 1]}
         rotation={[spin, spin, spin]}
+        position={[0, -1000, 0]}
     />
 
     <PerspectiveCamera position={[150, 75, 0]}/>
