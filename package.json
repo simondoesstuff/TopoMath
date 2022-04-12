@@ -30,6 +30,7 @@
   },
   "type": "module",
   "dependencies": {
+    "grapick": "^0.1.13",
     "mathjs": "^10.4.2",
     "mathquill": "^0.10.1-a",
     "noisejs": "^2.1.0",

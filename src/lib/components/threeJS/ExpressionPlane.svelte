@@ -4,12 +4,16 @@
     import * as HeightMap from "./heightMap.js";
     import * as SC from "svelte-cubed";
 
+
     export let expression;
     export let colorFunction = () => new THREE.Color(0, 0, 0);
-    export let length = 120;
-    export let segments = 100;
+    export let length = 200;
+    export let segments = 200;
+
+    export let doLerp = false;
     export let lerpThreshold = .01;     // how far we should lerp
-    export let changeSmoothness = 0.1;  // how fast we should lerp
+    export let lerpSpeed = 0.03;  // how fast we should lerp
+
 
     let geometry = new THREE.PlaneGeometry(length, length, segments, segments);
     geometry.setAttribute('color', new THREE.BufferAttribute(new Float32Array(geometry.attributes.position.count * 3), 3));
@@ -43,7 +47,7 @@
             x *= -1;
             y *= -1;
 
-            let target = HeightMap.evaluateAt(x, y);
+            let target = 20 * HeightMap.evaluateAt(x, y);
 
             if (target == null) {
                 // ran into a problem. latexExp probably invalid
@@ -75,16 +79,14 @@
             const targetHeight = targets[vertexIndex];
             let z = positions.getZ(vertexIndex);
 
-            // if the lerpThreshold is 0, then lerp
-            // is essentially disabled.
-            if (lerpThreshold === 0) {
+            if (!doLerp) {
                 positions.setZ(vertexIndex, targetHeight);
                 // remove the vertex from the queue
                 return false;
             }
 
             // lerp
-            z = z + changeSmoothness * (targetHeight - z);
+            z = z + lerpSpeed * (targetHeight - z);
 
             // if close enough
             if (Math.abs(targetHeight - z) <= lerpThreshold) {
@@ -132,6 +134,9 @@
         lerpHeights();
         geometry.computeVertexNormals();
         computeColors(colorFunction);
+
+        // for svelte reactivity
+        geometry = geometry;
     });
 </script>
 

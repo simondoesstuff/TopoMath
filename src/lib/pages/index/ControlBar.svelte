@@ -6,6 +6,7 @@
     import RibbonToggle from "$lib/pages/index/RibbonToggle.svelte";
     import ColorSwatchIcon from "../../svgIcons/ColorSwatchIcon.svelte";
     import XIcon from "../../svgIcons/XIcon.svelte";
+    import GrapickBar from "$lib/components/grapick/GrapickBar.svelte";
 
 
     export let latex;
@@ -18,7 +19,7 @@
     <div transition:fly|local={{y: -100}}>
         <div class="flex gap-3 justify-between content-between p-3 px-6 bg-indigo-900 h-32">
             <!--    Menu/Close Button     -->
-                    <!--   todo is this outer grid center div necessary?    -->
+                    <!--   // todo is this outer grid center div necessary?    -->
             <div class="grid place-items-center">
                 <button class="btn-soft" on:click={() => gradPaneOpen = !gradPaneOpen}>
                     {#if gradPaneOpen}
@@ -30,7 +31,10 @@
             </div>
 
             {#if gradPaneOpen}
-                <h3>gradients!</h3>
+                <div class="grid place-items-center flex-grow pl-3 px-10">
+                    <GrapickBar/>
+                </div>
+                <div></div>
             {:else}
                 <!--    MQ Expression Box       -->
                 <EditableMathField bind:latex _class="text-6xl text-white"/>
