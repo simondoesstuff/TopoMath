@@ -1,16 +1,14 @@
 <script>
     import ControlBar from "$pages/index/ControlBar.svelte";
-    import ThreeScene from "$components/threeJS/ThreeScene.svelte";
-    import DomLog from "$components/DomLog.svelte";
+    import ThreeScene from "$components/threeJS/ThreeScene.svelte"
     import * as THREE from "three";
     import {normalizeHeightValue} from "../lib/components/threeJS/heightMap.js";
 
     let expression = "f(x)";
-    let elLog;
 
     let colorFunction = (angle, height) => {
-        height = normalizeHeightValue(height);
-        return new THREE.Color().setHSL(angle, height, .6);
+        height = 1 - normalizeHeightValue(height);
+        return new THREE.Color().setHSL(angle, height, .2);
     }
 </script>
 

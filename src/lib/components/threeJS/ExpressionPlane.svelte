@@ -1,7 +1,7 @@
 <script>
     import * as THREE from 'three';
     import {Mesh} from "svelte-cubed";
-    import * as ValueGen from "./heightMap.js";
+    import * as HeightMap from "./heightMap.js";
     import * as SC from "svelte-cubed";
 
     export let expression;
@@ -27,7 +27,7 @@
      * Update all height values in the plane.
      */
     const newExpression = (latexExp) => {
-        ValueGen.newExpression(latexExp)
+        HeightMap.newExpression(latexExp)
 
         let positions = geometry.attributes.position;
         let vertexCount = positions.count
@@ -43,7 +43,7 @@
             x *= -1;
             y *= -1;
 
-            let target = ValueGen.evaluateAt(x, y);
+            let target = HeightMap.evaluateAt(x, y);
 
             if (target == null) {
                 // ran into a problem. latexExp probably invalid
@@ -122,8 +122,6 @@
     $: if (expression) newExpression(expression);
     $: if (colorFunction) computeColors(colorFunction);
 
-    $: console.log(expression)
-
     // called every frame.
     // each frame if the verticies need to ease into new positions
     // the mesh will have to be updated.
@@ -139,10 +137,15 @@
 
 
 <Mesh
-    geometry={geometry}
-    material={new THREE.MeshPhongMaterial({side: THREE.DoubleSide, vertexColors: true})}
     rotation={[-Math.PI/2, 0, 0]}
     position={[0, -5, 0]}
     receiveShadow
     castShadow
+    geometry={geometry}
+    material={new THREE.MeshPhongMaterial({
+        side: THREE.DoubleSide,
+        vertexColors: true,
+        shininess: 20,
+        emissive: '#000000',
+    })}
 />

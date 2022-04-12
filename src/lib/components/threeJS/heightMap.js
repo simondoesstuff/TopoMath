@@ -3,7 +3,7 @@ import {transcribeEq} from "./expressionTranslator.js";
 import * as Noise from "./noiseValueGenerator.js";
 
 
-let activeEvaluator = (scope) => null;
+let activeEvaluator = (scope) => 0;
 
 /**
  * Fetch and parse a new latex expression to model the height map
@@ -17,11 +17,12 @@ export function newExpression(newLatexString) {
 
     try {
         parser = parse(exp);
+        activeEvaluator = (scope) => parser.evaluate(scope);
     } catch (e) {
         // pass
+        // this is okay because we don't want to rerender the scene
+        // if the expression is invalid
     }
-
-    activeEvaluator = (scope) => parser.evaluate(scope);
 }
 
 function parse(latexStr) {
@@ -69,6 +70,9 @@ function parse(latexStr) {
     return parser.compile();
 }
 
+// todo debug
+let i = 0;
+
 /**
  * Get a value on the heightmap. Values are cached.
  *
@@ -96,8 +100,10 @@ export function evaluateAt(x, y) {
     try {
         v = activeEvaluator(scope);
     } catch (e) {
-        v = null;
+        v = 0;
     }
+
+    if (isNaN(v)) v = 0;
 
     return v;
 }

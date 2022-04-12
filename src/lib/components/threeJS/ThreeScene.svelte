@@ -23,7 +23,7 @@
 <Canvas antialias background={new THREE.Color('#21252b')}>
     <Mesh
         geometry={new THREE.BoxGeometry()}
-        material={new THREE.MeshStandardMaterial({ color: 0xff3e00 })}
+        material={new THREE.MeshPhongMaterial({ specular: '#4d4d4d', shininess: 50 })}
         scale={[1, 1, 1]}
         rotation={[spin, spin, spin]}
         position={[0, -1000, 0]}
@@ -31,8 +31,8 @@
 
     <PerspectiveCamera position={[150, 75, 0]}/>
     <OrbitControls enablePan dampingFactor={0.05} enableDamping={false} enableZoom/>
-    <AmbientLight intensity={0.6}/>
-    <DirectionalLight intensity={0.6} position={[-2, 3, 2]}/>
+<!--    <AmbientLight intensity={0.4}/>-->
+    <DirectionalLight intensity={3} position={[-2, 6, 2]}/>
 
     <ExpressionPlane expression={expression} colorFunction={colorFunction}/>
 </Canvas>

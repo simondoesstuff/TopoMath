@@ -1,5 +1,7 @@
 let filters = [];
 
+// todo add support for abs bars
+
 /**
  * Convert a math formula in LaTeX form to ascii math.
  * Does not cache. Pure method.
