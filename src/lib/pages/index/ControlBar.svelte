@@ -17,18 +17,18 @@
 
 {#if !contracted}
     <div transition:fly|local={{y: -100}}>
-        <div class="flex gap-3 justify-between content-between p-3 px-6 bg-indigo-900 h-32">
-            <!--    Menu/Close Button     -->
+        <div class="flex gap-3 justify-center content-between p-3 px-6 bg-indigo-900 h-32">
+            <!--    Menu/Close Button todo    -->
                     <!--   // todo is this outer grid center div necessary?    -->
-            <div class="grid place-items-center">
-                <button class="btn-soft" on:click={() => gradPaneOpen = !gradPaneOpen}>
-                    {#if gradPaneOpen}
-                        <XIcon/>
-                    {:else}
-                        <ColorSwatchIcon/>
-                    {/if}
-                </button>
-            </div>
+<!--            <div class="grid place-items-center">-->
+<!--                <button class="btn-soft" on:click={() => gradPaneOpen = !gradPaneOpen}>-->
+<!--                    {#if gradPaneOpen}-->
+<!--                        <XIcon/>-->
+<!--                    {:else}-->
+<!--                        <ColorSwatchIcon/>-->
+<!--                    {/if}-->
+<!--                </button>-->
+<!--            </div>-->
 
             {#if gradPaneOpen}
                 <div class="grid place-items-center flex-grow pl-3 px-10">
@@ -38,15 +38,15 @@
             {:else}
                 <!--    MQ Expression Box       -->
                 <EditableMathField bind:latex _class="text-6xl text-white"/>
-                <!--    PlusIcon and MinusIcon Buttons      -->
-                <div class="flex flex-col justify-between">
-                    <button class="btn-soft">
-                        <PlusIcon/>
-                    </button>
-                    <button class="btn-soft">
-                        <MinusIcon/>
-                    </button>
-                </div>
+                <!--    PlusIcon and MinusIcon Buttons  todo    -->
+<!--                <div class="flex flex-col justify-between">-->
+<!--                    <button class="btn-soft">-->
+<!--                        <PlusIcon/>-->
+<!--                    </button>-->
+<!--                    <button class="btn-soft">-->
+<!--                        <MinusIcon/>-->
+<!--                    </button>-->
+<!--                </div>-->
             {/if}
         </div>
         <!--    Contraction "Ribbon"            -->
