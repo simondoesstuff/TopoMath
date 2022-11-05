@@ -10,9 +10,9 @@
     export let length = 200;
     export let segments = 200;
 
-    export let doLerp = false;
+    export let doLerp = true;
     export let lerpThreshold = .01;     // how far we should lerp
-    export let lerpSpeed = 0.03;  // how fast we should lerp
+    export let lerpSpeed = 0.3;  // how fast we should lerp
 
 
     let geometry = new THREE.PlaneGeometry(length, length, segments, segments);
@@ -113,7 +113,7 @@
             const angle = Math.abs(normals.getZ(i));
             const height = positions.getZ(i);
 
-            let color = colorFunction(angle, height);
+            let color = colorFunction(angle, height - 9);
             colors.setXYZ(i, color.r, color.g, color.b);
         }
 

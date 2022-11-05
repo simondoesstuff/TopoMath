@@ -30,12 +30,12 @@
 <!--                </button>-->
 <!--            </div>-->
 
-            {#if gradPaneOpen}
-                <div class="grid place-items-center flex-grow pl-3 px-10">
-                    <GrapickBar/>
-                </div>
-                <div></div>
-            {:else}
+            <!--{#if gradPaneOpen}-->
+            <!--    <div class="grid place-items-center flex-grow pl-3 px-10">-->
+            <!--        <GrapickBar/>-->
+            <!--    </div>-->
+            <!--    <div></div>-->
+            <!--{:else}-->
                 <!--    MQ Expression Box       -->
                 <EditableMathField bind:latex _class="text-6xl text-white"/>
                 <!--    PlusIcon and MinusIcon Buttons  todo    -->
@@ -47,7 +47,7 @@
 <!--                        <MinusIcon/>-->
 <!--                    </button>-->
 <!--                </div>-->
-            {/if}
+<!--            {/if}-->
         </div>
         <!--    Contraction "Ribbon"            -->
         <RibbonToggle

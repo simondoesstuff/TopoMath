@@ -2,7 +2,7 @@
     import ControlBar from "$pages/index/ControlBar.svelte";
     import ThreeScene from "$components/threeJS/ThreeScene.svelte"
     import * as THREE from "three";
-    import {normalizeHeightValue} from "../lib/components/threeJS/heightMap.js";
+    import {normalizeHeightValue} from "$components/threeJS/heightMap.js";
 
     let expression = "f(x)";
 

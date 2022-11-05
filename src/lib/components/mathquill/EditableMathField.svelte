@@ -27,19 +27,22 @@
         return window.MQ;
     }
 
-    onMount(async () => {
+    async function mount() {
         mqField = (await MQ()).MathField(elField, {
             handlers: {
                 edit: () => onEdit(mqField.latex())
             }
         });
-    })
+    }
 
-    onDestroy(() => {
+    function destroy() {
         if (mqField) {
             mqField.revert();
         }
-    })
+    }
+
+    onMount(mount)
+    onDestroy(destroy)
 </script>
 
 
